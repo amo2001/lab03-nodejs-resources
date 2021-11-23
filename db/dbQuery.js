@@ -4,9 +4,9 @@ const databasename = "sql6440943";
 var pool = mysql.createPool({
     connectionLimit: 100,
     host: "sql6.freemysqlhosting.net",
-    user: "sql6440943",
-    password: "",
-    database: "sql6440943",
+    user: "sql6452948",
+    password: "yp3ZKmZMAt",
+    database: "sql6452948",
     debug: true
 });
 
