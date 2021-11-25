@@ -73,41 +73,56 @@ const registerService = (client, callback) => {
 };
 
 
-const searchService = function(callback) { //to be completed
-    clientDAO.find(function(err, rows) {
-        if (err) {
-            throw err;
-        }
-        if (rows.length == 0) {
-            console.log("No clients!");
-        } else {
-            callback(null, rows);
-        }
-    });
-};
-
-const searchUsername = function(username, callback) {
-  clientDAO.findByUsername(username, function(err, rows) {
+const searchService = function(callback) {
+  clientDAO.find(function(err, rows) {
       if (err) {
           throw err;
+      }
+      if (rows.length == 0) {
+          console.log("No clients!");
       } else {
-          callback(false, rows);
+          callback(null, rows);
+      }
+  });
+};
+
+
+
+const searchUsernameService = function(num_client, callback) {
+    
+  clientDAO.findNumUsername(num_client, function(err, rows) {
+      if (err) {
+          throw err;
+      }
+      if (rows.length == 0) {
+          console.log("Unkown client!");
+          let client = null;
+          callback(null, client);
+      } else {
+          //rreturn the retrieved client 
+          callback(null, rows[0]);
       }
   });
 }
 
+
 const searchNumclientService = function(num_client, callback) {
-    clientDAO.findByNumclient(num_client,function(err, rows) {
-        if (err) {
-            throw err;
-        }
-        if (rows.length == 0) {
-            console.log("No client with that id!");
-        } else {
-            callback(null, rows);
-        }
-    });
+ 
+  clientDAO.findByNumclient(num_client, function(err, rows) {
+      if (err) {
+          throw err;
+      }
+      if (rows.length == 0) {
+          console.log("Unkown client!");
+          let client = null;
+          callback(null, client);
+      } else {
+          //return the retrieved client 
+          callback(null, rows[0]);
+      }
+  });
 };
+
 
 const deleteService = function(num_client, callback) {
     clientDAO.findByNumclient(num_client,function(err, rows) {
@@ -126,7 +141,7 @@ module.exports = {
     loginService,
     registerService,
     searchNumclientService,
-    searchUsername,
+    searchUsernameService,
     searchService,
     deleteService
 };

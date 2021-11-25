@@ -21,3 +21,6 @@ router.post('/api/login', clientController.loginControl);
 
 //export router
 module.exports = router;
+
+router.get('/api/clients', clientController.getClients);
+router.get('/api/clientdetails/:num_client', clientController.getClientByNumclient);

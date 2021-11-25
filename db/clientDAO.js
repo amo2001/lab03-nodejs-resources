@@ -4,30 +4,40 @@ const bcrypt = require("bcrypt");
 //select all clients
 function find(callback) {
   var rows = null;
-  //put your code her to select clients and return the array
-  //....
-  callback(null, rows);
-}
-
-function findByUsername(username, callback) {
-  const selectClient = `SELECT * from account where username like '${username}';`;
-  database.getResult(selectClient, function (err, rows) {
-    if (!err) {
-      callback(null, rows);
-    } else {
-      console.log(err);
-    }
+  const selectClients = (`SELECT * from account;`);
+  database.getResult(selectClients, function(err, rows) {
+      if (!err) {
+          callback(null, rows);
+      } else {
+          console.log(err);
+          throw err;
+      }
   });
 }
 
+
+function findNumUsername(num_client, callback) {
+  const selectClient = (`SELECT username from account where num_client like '${num_client}';`);
+  database.getResult(selectClient, function(err, rows) {
+      if (!err) {
+          callback(null, rows);
+      } else {
+          console.log(err);
+      }
+  });
+}
+
+
+
 function findByNumclient(num, callback) {
-  const selectClient = `SELECT * from client where num_client like ${num};`;
-  database.getResult(selectClient, function (err, row) {
-    if (!err) {
-      callback(null, row);
-    } else {
-      console.log(err);
-    }
+  const selectClient = (`SELECT * from client where num_client like '${num}';`);
+  database.getResult(selectClient, function(err, rows) {
+      if (!err) {
+          console.log(rows)
+          callback(null, rows);
+      } else {
+          console.log(err);
+      }
   });
 }
 
@@ -87,8 +97,8 @@ function createClient(client, callback) {
   });
 }
 module.exports = {
-  // find,
-  findByUsername,
+  find,
+  findNumUsername,
   // findBySociety,
   findByNumclient,
   createClient,
